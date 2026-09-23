@@ -1,124 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Foosha Village Luffy Game</title>
-    <style>
-      :root {
-        --bg: #08131f;
-        --panel: #112334;
-        --panel-alt: #17344b;
-        --accent: #ffbf47;
-        --accent-2: #5ad1ff;
-        --text: #edf7ff;
-        --muted: #b2d8ee;
-        --shadow: rgba(0, 0, 0, 0.35);
-      }
-
-      * { box-sizing: border-box; }
-
-      body {
-        margin: 0;
-        min-height: 100vh;
-        font-family: Arial, Helvetica, sans-serif;
-        background: radial-gradient(circle at top, #163857 0%, var(--bg) 52%);
-        color: var(--text);
-        display: grid;
-        place-items: center;
-      }
-
-      .card {
-        width: min(720px, calc(100vw - 32px));
-        background: rgba(17, 35, 52, 0.95);
-        border: 1px solid rgba(255,255,255,0.12);
-        border-radius: 20px;
-        box-shadow: 0 20px 50px var(--shadow);
-        padding: 32px 28px;
-      }
-
-      h1 {
-        margin: 0 0 14px;
-        font-size: clamp(2rem, 5vw, 3rem);
-        line-height: 1.1;
-        color: var(--accent);
-      }
-
-      p {
-        margin: 0 0 18px;
-        color: var(--muted);
-        font-size: 1.05rem;
-        line-height: 1.6;
-      }
-
-      .actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 14px;
-        margin-top: 24px;
-      }
-
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 46px;
-        padding: 0 22px;
-        border-radius: 999px;
-        font-size: 1rem;
-        font-weight: 700;
-        text-decoration: none;
-        transition: transform 0.15s ease, opacity 0.15s ease;
-      }
-
-      .btn:hover {
-        transform: translateY(-1px);
-        opacity: 0.96;
-      }
-
-      .primary {
-        background: linear-gradient(135deg, var(--accent), #ff9f1c);
-        color: #1d1708;
-      }
-
-      .secondary {
-        background: transparent;
-        color: var(--text);
-        border: 1px solid rgba(255,255,255,0.2);
-      }
-
-      .info {
-        margin-top: 24px;
-        padding: 14px 16px;
-        border-left: 4px solid var(--accent-2);
-        background: rgba(90, 209, 255, 0.08);
-        color: var(--text);
-        border-radius: 10px;
-      }
-
-      code {
-        background: rgba(255,255,255,0.05);
-        padding: 2px 8px;
-        border-radius: 6px;
-        font-family: Consolas, monospace;
-      }
-    </style>
-  </head>
-  <body>
-    <main class="card">
-      <h1>Foosha Village Luffy Game</h1>
-      <p>
-        This project has been prepared for static hosting. The original game is packaged as a ZIP file and is ready to be downloaded and opened locally.
-      </p>
-
-      <div class="actions">
-        <a class="btn primary" href="./foosha-village-luffy-game.zip" download>Download ZIP</a>
-        <a class="btn secondary" href="./foosha-village-luffy-game.zip">Open ZIP</a>
-      </div>
-
-      <div class="info">
-        To play: download the ZIP, extract it, and open <code>foosha-game/index.html</code> in a browser.
-      </div>
-    </main>
-  </body>
-</html>
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>Foosha Village — Luffy</title><style>html,body{margin:0;height:100%;overflow:hidden;background:#8ed0e8;font-family:system-ui,sans-serif}#hud{position:fixed;z-index:5;left:14px;top:12px;color:#fff;text-shadow:0 2px 4px #000;font-weight:700;pointer-events:none}#hint{font-size:13px;opacity:.9;margin-top:4px}#touch{display:none;position:fixed;inset:0;z-index:8;pointer-events:none}.stick{position:absolute;bottom:28px;width:120px;height:120px;border:2px solid #ffffff66;border-radius:50%;background:#0002;pointer-events:auto}.stick i{position:absolute;left:35px;top:35px;width:50px;height:50px;border-radius:50%;background:#fff7}.left{left:24px}.right{right:24px}.jump{position:absolute;right:170px;bottom:42px;width:72px;height:72px;border-radius:50%;border:2px solid #fff8;background:#d33c;color:#fff;font-weight:800;pointer-events:auto}.look{position:absolute;right:0;top:0;width:50%;height:70%;pointer-events:auto}@media(max-width:700px){#touch{display:block}#hint{display:none}}</style></head><body><div id="hud"><div>FOOSHA VILLAGE</div><div id="hint">WASD / arrows to move · Space to jump · drag to look</div></div><div id="touch"><div class="stick left"><i></i></div><div class="look"></div><button class="jump">JUMP</button></div><script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js';
+import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js';
+const scene=new THREE.Scene();scene.background=new THREE.Color(0x8fd1e7);scene.fog=new THREE.Fog(0x8fd1e7,45,150);
+const camera=new THREE.PerspectiveCamera(58,innerWidth/innerHeight,.1,250);camera.position.set(0,7,12);
+const renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,1.6));renderer.setSize(innerWidth,innerHeight);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;document.body.appendChild(renderer.domElement);
+scene.add(new THREE.HemisphereLight(0xccefff,0x49634b,2.2));const sun=new THREE.DirectionalLight(0xfff1cf,3);sun.position.set(-30,50,20);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);scene.add(sun);
+function mat(c){return new THREE.MeshStandardMaterial({color:c,roughness:.85})} const green=mat(0x5d9c57),wood=mat(0x9a6239),darkwood=mat(0x5a3826),roof=mat(0x7c4632),sand=mat(0xd5bd7b),water=mat(0x4eafd0);
+const ground=new THREE.Mesh(new THREE.PlaneGeometry(150,150),green);ground.rotation.x=-Math.PI/2;ground.receiveShadow=true;scene.add(ground);
+const sea=new THREE.Mesh(new THREE.PlaneGeometry(120,45),water);sea.rotation.x=-Math.PI/2;sea.position.set(0,-.04,-48);scene.add(sea);
+function box(x,y,z,sx,sy,sz,m){let o=new THREE.Mesh(new THREE.BoxGeometry(sx,sy,sz),m);o.position.set(x,y,z);o.castShadow=o.receiveShadow=true;scene.add(o);return o}
+function house(x,z,scale=1){box(x,1.5,z,7*scale,3*scale,6*scale,wood);let r=new THREE.Mesh(new THREE.ConeGeometry(5*scale,3.5*scale,4),roof);r.rotation.y=Math.PI/4;r.position.set(x,4.7*scale,z);r.castShadow=true;scene.add(r);box(x,1.25,z-3.08*scale,1.2*scale,2.4*scale,.15, darkwood);box(x-2.1*scale,2,z-3.1*scale,1.3*scale,1.1*scale,.18,mat(0xa7d0c2));box(x+2.1*scale,2,z-3.1*scale,1.3*scale,1.1*scale,.18,mat(0xa7d0c2))}
+house(-13,-3,1.1);house(12,2,.9);house(-10,15,.85);house(13,18,1.05);house(-1,25,.8);
+// docks
+for(let i=0;i<8;i++) box(-8+i*2,-.05,-30,1.7,.3,9,wood);
+for(let i=0;i<7;i++) box(-7+i*2,.15,-25.8,1.5,.3,1,wood);
+// windmills
+function windmill(x,z){box(x,4,z,.65,8,.65,darkwood);const hub=new THREE.Group();hub.position.set(x,8,z-.45);for(let i=0;i<4;i++){const blade=box(0,0,0,.35,3.7,.22,wood);blade.position.y=1.9;blade.rotation.z=.18;blade.position.x=.7;blade.rotation.y=Math.PI/2;blade.rotation.z=i*Math.PI/2;hub.add(blade)}scene.add(hub);}
+windmill(-23,10);windmill(24,12);
+// mountain backdrop
+const mountain=new THREE.Mesh(new THREE.ConeGeometry(34,38,9),mat(0x416d4a));mountain.position.set(0,17,47);mountain.scale.set(1,.8,1);scene.add(mountain);
+// path
+const path=new THREE.Mesh(new THREE.PlaneGeometry(9,60),sand);path.rotation.x=-Math.PI/2;path.position.set(0,.01,13);scene.add(path);
+// Luffy procedural stylized character
+const luffy=new THREE.Group();scene.add(luffy);luffy.position.set(0,0,8);
+const skin=mat(0xf1b27d), red=mat(0xb51f26), blue=mat(0x245b91), black=mat(0x17130f), straw=mat(0xd6aa45);
+function sph(r,seg,matl){return new THREE.Mesh(new THREE.SphereGeometry(r,seg,Math.max(8,seg/2)),matl)}
+const legs=[];for(const x of [-.38,.38]){let leg=box(x,1.05,0,.55,1.5,.6,blue);luffy.add(leg);legs.push(leg);let foot=box(x,.28,-.12,.7,.28,1.15,skin);luffy.add(foot)}
+const torso=new THREE.Mesh(new THREE.CylinderGeometry(.9,1.05,1.7,12),red);torso.position.y=2.25;torso.castShadow=true;luffy.add(torso);
+for(const x of [-1.0,1.0]){let arm=new THREE.Mesh(new THREE.CylinderGeometry(.24,.28,1.55,10),skin);arm.position.set(x,2.25,0);arm.rotation.z=x<0?.18:-.18;arm.castShadow=true;luffy.add(arm)}
+const neck=box(0,3.1,0,.38,.35,.38,skin);luffy.add(neck);const head=sph(1.02,16,skin);head.position.y=4.0;head.castShadow=true;luffy.add(head);
+// hair spikes via cones
+for(let i=0;i<9;i++){let h=new THREE.Mesh(new THREE.ConeGeometry(.22,.75,6),black);let a=i/9*Math.PI*2;h.position.set(Math.cos(a)*.72,4.55,Math.sin(a)*.72);h.rotation.x=-Math.cos(a)*.65;h.rotation.z=Math.sin(a)*.65;luffy.add(h)}
+// eyes
+for(const x of [-.34,.34]){let e=sph(.13,10,black);e.position.set(x,4.05,.93);luffy.add(e)}
+// straw hat
+const brim=new THREE.Mesh(new THREE.CylinderGeometry(1.35,1.35,.16,24),straw);brim.position.y=4.9;luffy.add(brim);const crown=new THREE.Mesh(new THREE.CylinderGeometry(.78,.92,.65,18),straw);crown.position.y=5.22;luffy.add(crown);const band=new THREE.Mesh(new THREE.CylinderGeometry(.94,.94,.16,18),red);band.position.y=5.12;luffy.add(band);
+// camera follow
+let yaw=0,pitch=.22,keys={};let velocityY=0,onGround=true;const clock=new THREE.Clock();
+addEventListener('keydown',e=>{keys[e.code]=true;if(e.code==='Space'&&onGround){velocityY=7.5;onGround=false}});addEventListener('keyup',e=>keys[e.code]=false);
+let dragging=false,lastX=0,lastY=0;renderer.domElement.addEventListener('pointerdown',e=>{dragging=true;lastX=e.clientX;lastY=e.clientY});addEventListener('pointerup',()=>dragging=false);addEventListener('pointermove',e=>{if(!dragging)return; yaw-= (e.clientX-lastX)*.006;pitch=Math.max(-.2,Math.min(.65,pitch-(e.clientY-lastY)*.004));lastX=e.clientX;lastY=e.clientY});
+// mobile joystick
+let joy={x:0,y:0};const stick=document.querySelector('.left'), knob=stick.querySelector('i');stick.addEventListener('pointerdown',e=>{stick.setPointerCapture(e.pointerId)});stick.addEventListener('pointermove',e=>{const r=stick.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;joy.x=Math.max(-1,Math.min(1,(e.clientX-cx)/45));joy.y=Math.max(-1,Math.min(1,(e.clientY-cy)/45));knob.style.transform=`translate(${joy.x*35}px,${joy.y*35}px)`});stick.addEventListener('pointerup',()=>{joy.x=joy.y=0;knob.style.transform=''});document.querySelector('.jump').addEventListener('pointerdown',()=>{if(onGround){velocityY=7.5;onGround=false}});
+function animate(){requestAnimationFrame(animate);const dt=Math.min(clock.getDelta(),.033);let f=(keys.KeyW||keys.ArrowUp?-1:0)+(keys.KeyS||keys.ArrowDown?1:0)-joy.y;let s=(keys.KeyD||keys.ArrowRight?1:0)+(keys.KeyA||keys.ArrowLeft?-1:0)+joy.x;let len=Math.hypot(f,s);if(len>1){f/=len;s/=len}const speed=7;if(len>.05){const fx=Math.sin(yaw)*f+Math.cos(yaw)*s;const fz=Math.cos(yaw)*f-Math.sin(yaw)*s;luffy.position.x+=fx*speed*dt;luffy.position.z+=fz*speed*dt;luffy.rotation.y=Math.atan2(fx,fz);}
+velocityY-=18*dt;luffy.position.y+=velocityY*dt;if(luffy.position.y<=0){luffy.position.y=0;velocityY=0;onGround=true}luffy.position.x=Math.max(-34,Math.min(34,luffy.position.x));luffy.position.z=Math.max(-33,Math.min(38,luffy.position.z));
+const target=new THREE.Vector3(luffy.position.x,luffy.position.y+2.5,luffy.position.z);const dist=10;camera.position.lerp(new THREE.Vector3(target.x+Math.sin(yaw)*dist*Math.cos(pitch),target.y+Math.sin(pitch)*dist,target.z+Math.cos(yaw)*dist*Math.cos(pitch)),1-Math.pow(.001,dt));camera.lookAt(target);renderer.render(scene,camera)}animate();
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
+</script></body></html>
